@@ -11,7 +11,7 @@
         android:background="#ff787878"/>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="130dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/list_item_gradient_background" />
     <TextView

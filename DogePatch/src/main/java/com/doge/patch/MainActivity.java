@@ -131,7 +131,7 @@ public class MainActivity extends FragmentActivity {
                 "Hipster Taco",
                 "Vegan Taco",
                 "Yummy Taco",
-                "Asian Taco",
+                "Asian Taco"
         };
         private final String[] DUMMY_RESTAURANT_NAMES = {
                 "Iron Cactus",
@@ -155,7 +155,7 @@ public class MainActivity extends FragmentActivity {
                 "Kashif, Katie, and 2 others",
                 "Kashif, Katie, and 2 others",
                 "Kashif, Katie, and 2 others",
-                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others"
         };
         private final double[] DUMMY_LOCATIONS = {
                 0.1,
@@ -168,6 +168,13 @@ public class MainActivity extends FragmentActivity {
                 0.1,
                 0.2,
                 0.6
+        };
+        private final String[] DUMMY_URLS = {
+                "http://cdn.sheknows.com/articles/Tacos.jpg",
+                "http://reciperhapsody.files.wordpress.com/2010/02/chicken-ranch-tacos-1-23-10_edited-1.jpg",
+                "http://2.bp.blogspot.com/-1FoE4k45ud4/UHR54yQUyRI/AAAAAAAAC1s/KsJhTZcmF3M/s1600/Beef+Taco+Bake.jpg",
+                "http://3.bp.blogspot.com/-i1PrURos3js/TZjJXZE0xsI/AAAAAAAAA7Y/WrwwicKA5iE/s1600/Chipotle+Shredded+Beef+Tacos+www.bos-bowl.com.JPG",
+                "http://www.iwashyoudry.com/wp-content/uploads/2012/05/tacos21.jpg"
         };
 
         @Override
@@ -185,6 +192,7 @@ public class MainActivity extends FragmentActivity {
             dish.restaurantName = DUMMY_RESTAURANT_NAMES[position];
             dish.social = DUMMY_SOCIALS[position];
             dish.location = DUMMY_LOCATIONS[position];
+            dish.imageUrls = DUMMY_URLS;
             return dish;
         }
 
