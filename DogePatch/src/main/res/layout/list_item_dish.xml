@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp" >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/background_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#ff787878"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/list_item_gradient_background" />
+    <TextView
+        android:id="@+id/dish_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_row_container"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/list_item_dish_padding"
+        android:textSize="@dimen/list_item_dish_name_text_size"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="normal"
+        android:textColor="@color/list_item_dish_font_color"
+        android:text="PLACEHOLDER" />
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_row_container"
+        android:layout_toRightOf="@id/dish_name"
+        android:textSize="@dimen/list_item_dish_name_text_size"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="italic"
+        android:textColor="@color/list_item_dish_font_color"
+        android:text="PLACEHOLDER" />
+    <RelativeLayout
+        android:id="@id/bottom_row_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_dish_icon_size"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/list_item_dish_padding"
+        android:paddingRight="@dimen/list_item_dish_padding"
+        android:paddingBottom="@dimen/list_item_dish_padding"
+        android:paddingTop="@dimen/list_item_dish_spacing"
+        android:gravity="center_vertical" >
+        <ImageView
+            android:id="@+id/social_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/list_item_dish_icon_size"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_heart" />
+        <TextView
+            android:id="@+id/social"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/social_icon"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="@dimen/list_item_dish_spacing"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/list_item_dish_social_text_size"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="normal"
+            android:textColor="@color/list_item_dish_font_color"
+            android:text="PLACEHOLDER"/>
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/list_item_dish_icon_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_location" />
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:paddingRight="@dimen/list_item_dish_spacing"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@id/location_icon"
+            android:textSize="@dimen/list_item_dish_location_text_size"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="normal"
+            android:textColor="@color/list_item_dish_font_color"
+            android:text="0.5 mi"/>
+    </RelativeLayout>
+</RelativeLayout>

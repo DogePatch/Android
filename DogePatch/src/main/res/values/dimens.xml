@@ -2,4 +2,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="list_item_dish_padding">10dp</dimen>
+    <dimen name="list_item_dish_spacing">7dp</dimen>
+    <dimen name="list_item_dish_name_text_size">24sp</dimen>
+    <dimen name="list_item_dish_social_text_size">15sp</dimen>
+    <dimen name="list_item_dish_location_text_size">15sp</dimen>
+    <dimen name="list_item_dish_icon_size">35dp</dimen>
 </resources>

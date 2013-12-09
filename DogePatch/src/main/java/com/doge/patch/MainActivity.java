@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,9 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         initDrawer();
 
+
+        ListView listView = (ListView) findViewById(R.id.fragment_container);
+        listView.setAdapter(new DishListAdapter());
     }
 
 
@@ -115,5 +119,89 @@ public class MainActivity extends FragmentActivity {
             return null;
         }
     }
-    
+
+    private class DishListAdapter extends BaseAdapter {
+        private final String[] DUMMY_DISH_NAMES = {
+                "Steak Taco",
+                "Fishy Tacoz",
+                "Chicken Taco",
+                "Taco Nacho",
+                "Tofu Taco",
+                "Taco Supreme",
+                "Hipster Taco",
+                "Vegan Taco",
+                "Yummy Taco",
+                "Asian Taco",
+        };
+        private final String[] DUMMY_RESTAURANT_NAMES = {
+                "Iron Cactus",
+                "Mas Amigos",
+                "El Matate",
+                "El Farlito",
+                "Las Palmas",
+                "Taco Bell",
+                "Garaje",
+                "Los Comadres",
+                "Papito",
+                "El Norteno"
+        };
+        private final String[] DUMMY_SOCIALS = {
+                "Kashif, Katie, and 2 others",
+                "Kashif, Gabe, and 2 others",
+                "Robert, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+                "Kashif, Katie, and 2 others",
+        };
+        private final double[] DUMMY_LOCATIONS = {
+                0.1,
+                0.03,
+                0.2,
+                0.1,
+                0.5,
+                0.2,
+                0.1,
+                0.1,
+                0.2,
+                0.6
+        };
+
+        @Override
+        public int getCount() {
+            return DUMMY_DISH_NAMES.length;
+        }
+
+        /**
+         * Will always return {@Dish}
+         */
+        @Override
+        public Object getItem(int position) {
+            Dish dish = new Dish();
+            dish.dishName = DUMMY_DISH_NAMES[position];
+            dish.restaurantName = DUMMY_RESTAURANT_NAMES[position];
+            dish.social = DUMMY_SOCIALS[position];
+            dish.location = DUMMY_LOCATIONS[position];
+            return dish;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = new DishListItem(MainActivity.this);
+            }
+
+            Dish dish = (Dish) getItem(position);
+            ((DishListItem) convertView).setDish(dish);
+            return convertView;
+        }
+    }
 }
