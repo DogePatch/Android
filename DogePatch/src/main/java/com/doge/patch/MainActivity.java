@@ -1,6 +1,5 @@
 package com.doge.patch;
 
-import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -11,11 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
     DrawerLayout mDrawerLayout;
-    Fragment mContentFragment;
+    RelativeLayout mContentFragment;
     DrawerAdapter mDrawerAdapter;
     ActionBarDrawerToggle mDrawerToggle;
     TextView mDrawerList;
@@ -24,6 +24,7 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initDrawer();
 
     }
 
@@ -37,8 +38,6 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -67,7 +66,7 @@ public class MainActivity extends FragmentActivity {
         mDrawerToggle.syncState();
     }
 
-    private void initViews() {
+    private void initDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (TextView) findViewById(R.id.drawer_list);
 
@@ -92,7 +91,7 @@ public class MainActivity extends FragmentActivity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
     }
-    }
+
 
     class DrawerAdapter extends BaseAdapter {
 

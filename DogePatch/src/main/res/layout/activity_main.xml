@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Fragment
+    <RelativeLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
     <TextView
         android:id="@+id/drawer_list"
         android:layout_width="320dp"
-        android:layout_height="match_content"
+        android:layout_height="match_parent"
         android:gravity="start"
         android:text="@string/hello_world" />
 
