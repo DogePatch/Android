@@ -31,3 +31,6 @@ local.properties
 *.ipr
 *~
 *.swp.gradle
+
+# DS Store
+.DS_Store
