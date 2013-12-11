@@ -31,7 +31,6 @@ public class DishListItem extends RelativeLayout {
     private float yDownPosition;
 
     private Dish mDish;
-    private DishViewHolder mTag;
     private DishBackgroundPagerAdapter mAdapter = new DishBackgroundPagerAdapter();
     private ImageLoader mImageLoader;
     private List<String> mImageUrls = new ArrayList<String>();
@@ -90,30 +89,6 @@ public class DishListItem extends RelativeLayout {
         mImageUrls = Arrays.asList(mDish.imageUrls);
         Collections.shuffle(mImageUrls, new Random(System.nanoTime()));
         mAdapter.notifyDataSetChanged();
-    }
-
-    public DishViewHolder getTag() {
-        if (mTag == null) {
-            mTag = new DishViewHolder();
-        }
-        return mTag;
-    }
-
-
-    private class DishViewHolder {
-        public final ViewPager backgroundViewPager;
-        public final TextView dishNameTextView;
-        public final TextView restaurantNameTextView;
-        public final TextView socialTextView;
-        public final TextView locationTextView;
-
-        public DishViewHolder() {
-            backgroundViewPager = mBackgroundViewPager;
-            dishNameTextView = mDishNameTextView;
-            restaurantNameTextView = mRestaurantNameTextView;
-            socialTextView = mSocialTextView;
-            locationTextView = mLocationTextView;
-        }
     }
 
     private class DishBackgroundPagerAdapter extends PagerAdapter {
