@@ -16,8 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DishListItem extends RelativeLayout {
     private static final String TAG = DishListItem.class.getSimpleName();
@@ -88,9 +87,8 @@ public class DishListItem extends RelativeLayout {
 
         RequestQueue queue = DogePatchUtils.getRequestQueue(getContext().getApplicationContext());
         mImageLoader = new ImageLoader(queue,new BitmapLruCache());
-        for (String url : mDish.imageUrls) {
-            mImageUrls.add(url);
-        }
+        mImageUrls = Arrays.asList(mDish.imageUrls);
+        Collections.shuffle(mImageUrls, new Random(System.nanoTime()));
         mAdapter.notifyDataSetChanged();
     }
 
