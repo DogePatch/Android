@@ -1,10 +1,10 @@
 package com.doge.patch;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,13 +28,14 @@ public class DishListItem extends RelativeLayout {
     private final TextView mRestaurantNameTextView;
     private final TextView mSocialTextView;
     private final TextView mLocationTextView;
+    private float xDownPosition;
+    private float yDownPosition;
 
     private Dish mDish;
     private DishViewHolder mTag;
     private DishBackgroundPagerAdapter mAdapter = new DishBackgroundPagerAdapter();
     private ImageLoader mImageLoader;
     private List<String> mImageUrls = new ArrayList<String>();
-    private View mTouchTarget;
 
 
     public DishListItem(Context context) {
@@ -54,58 +55,23 @@ public class DishListItem extends RelativeLayout {
         mLocationTextView = (TextView) view.findViewById(R.id.location);
 
         mBackgroundViewPager.setAdapter(mAdapter);
-        mBackgroundViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            private float mLastPositionOffset = 0f;
-            private int mPreviousState = ViewPager.SCROLL_STATE_IDLE;
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                if(positionOffset < mLastPositionOffset && positionOffset < 0.7) {
-//                    mBackgroundViewPager.setCurrentItem(position);
-//                } else if(positionOffset > mLastPositionOffset && positionOffset > 0.3) {
-//                    mBackgroundViewPager.setCurrentItem(position+1);
-//                }
-//                mLastPositionOffset = positionOffset;
-            }
-
-            @Override
-            public void onPageSelected(int i) { }
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                // All of this is to inhibit any scrollable container from consuming our touch events as the user is changing pages
-                Log.d(TAG, "mScrollState " + state);
-                if (mPreviousState == ViewPager.SCROLL_STATE_IDLE) {
-                    if (state == ViewPager.SCROLL_STATE_DRAGGING) {
-                        mTouchTarget = mBackgroundViewPager;
-                    }
-                } else {
-                    if (state == ViewPager.SCROLL_STATE_IDLE || state == ViewPager.SCROLL_STATE_SETTLING) {
-                        mTouchTarget = null;
-                    }
-                }
-
-                mPreviousState = state;
-            }
-        });
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (mTouchTarget != null) {
-            boolean wasProcessed = mTouchTarget.onTouchEvent(ev);
-            Log.d(TAG, "wasProcessed " + wasProcessed);
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        final int action = MotionEventCompat.getActionMasked(event);
 
-            if (wasProcessed) {
-                requestDisallowInterceptTouchEvent(true);
-            } else {
-                requestDisallowInterceptTouchEvent(false);
-                mTouchTarget = null;
+        if (action == MotionEvent.ACTION_DOWN) {
+            xDownPosition = event.getX();
+            yDownPosition = event.getY();
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            float xDiff = Math.abs(event.getX() - xDownPosition);
+            float yDiff = Math.abs(event.getY() - yDownPosition);
+            if (xDiff > yDiff) {
+                getParent().requestDisallowInterceptTouchEvent(true);
             }
-
-            return wasProcessed;
         }
-        Log.d(TAG, "touch taget " + mTouchTarget);
-        return super.dispatchTouchEvent(ev);
+        return super.onInterceptTouchEvent(event);
     }
 
     /**
