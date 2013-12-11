@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="actionbar_background">#477c4f</color>
     <color name="list_item_dish_font_color">#fff9f9f9</color>
 </resources>
