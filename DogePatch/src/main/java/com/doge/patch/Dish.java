@@ -1,12 +1,36 @@
 package com.doge.patch;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 /**
- * Stub class to hold information about a dish
+ * Gson dish representation of the DogePatch api v1
  */
 public class Dish {
-    public String[] imageUrls;
+
+    @SerializedName("id")
+    public int id;
+
+    @SerializedName("name")
     public String dishName;
-    public String restaurantName;
+
+    @SerializedName("images")
+    public List<String> images;
+
+    @SerializedName("restaurantInfo")
+    public Restaurant restaurant;
+
+    @SerializedName("social")
     public String social;
-    public double location;
+
+    @SerializedName("lat")
+    public double lat;
+
+    @SerializedName("lng")
+    public double lng;
+
+    public double distance() {
+        return LocationUtils.distanceTo(lat, lng);
+    }
 }

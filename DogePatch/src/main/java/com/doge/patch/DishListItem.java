@@ -79,14 +79,14 @@ public class DishListItem extends RelativeLayout {
     public void setDish(Dish dish) {
         mDish = dish;
         mDishNameTextView.setText(mDish.dishName + " — ");
-        mRestaurantNameTextView.setText(mDish.restaurantName);
+        mRestaurantNameTextView.setText(mDish.restaurant.name);
         mSocialTextView.setText(mDish.social);
         // TODO: format this string properly and handle distance units
-        mLocationTextView.setText("" + mDish.location + " mi");
+        mLocationTextView.setText("" + mDish.distance() + " mi");
 
         RequestQueue queue = DogePatchUtils.getRequestQueue(getContext().getApplicationContext());
         mImageLoader = new ImageLoader(queue,new BitmapLruCache());
-        mImageUrls = Arrays.asList(mDish.imageUrls);
+        mImageUrls = mDish.images;
         Collections.shuffle(mImageUrls, new Random(System.nanoTime()));
         mAdapter.notifyDataSetChanged();
     }
