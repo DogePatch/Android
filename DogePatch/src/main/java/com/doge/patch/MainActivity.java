@@ -1,35 +1,27 @@
 package com.doge.patch;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.android.volley.Response;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private ApiUtils mApiUtils;
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mContentFragment;
-    private DishListAdapter mDishAdapter;
     private DrawerAdapter mDrawerAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private TextView mDrawerList;
-    private List<Dish> mDishes = new ArrayList<Dish>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +29,10 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         initDrawer();
 
-
-        ListView listView = (ListView) findViewById(R.id.fragment_container);
-        mDishAdapter = new DishListAdapter();
-        listView.setAdapter(mDishAdapter);
-
-        mApiUtils = new ApiUtils(getApplicationContext());
-        mApiUtils.getDishes(new Response.Listener() {
-            @Override
-            public void onResponse(Object o) {
-                mDishes = ((DishList) o).dishes;
-                Log.d(TAG, "Got " + mDishes.size() + " dishes");
-                mDishAdapter.notifyDataSetChanged();
-            }
-        });
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new SearchResultsFragment())
+                .commit();
     }
 
 
@@ -141,35 +123,5 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    private class DishListAdapter extends BaseAdapter {
 
-        @Override
-        public int getCount() {
-            return mDishes.size() * 20;
-        }
-
-        /**
-         * Will always return {@Dish}
-         */
-        @Override
-        public Object getItem(int position) {
-            return mDishes.get(position % mDishes.size());
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = new DishListItem(MainActivity.this);
-            }
-
-            Dish dish = (Dish) getItem(position);
-            ((DishListItem) convertView).setDish(dish);
-            return convertView;
-        }
-    }
 }
