@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dish_image_height">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/images"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dish_image_height"
+            android:background="#ff787878" />
+        <ImageButton
+            android:id="@+id/add_review_button"
+            android:layout_width="@dimen/add_review_button_size"
+            android:layout_height="@dimen/add_review_button_size"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/add_review_button_bottom_margin"
+            android:background="@drawable/round_button"
+            android:padding="@dimen/add_review_button_padding"
+            android:cropToPadding="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_edit" />
+
+    </FrameLayout>
+    <TextView
+        android:id="@+id/dish_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textSize="@dimen/dish_name_text_size"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:textSize="@dimen/dish_restaurant_text_size"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="normal" />
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.doge.patch;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Fragment that displays a list of search results
  */
-public class SearchResultsFragment extends ListFragment {
+public class SearchResultsFragment extends ListFragment implements View.OnClickListener {
     private static final String TAG = SearchResultsFragment.class.getSimpleName();
 
     private List<Dish> mDishes = new ArrayList<Dish>();
@@ -34,6 +35,15 @@ public class SearchResultsFragment extends ListFragment {
                 mAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        Dish dish = ((ListItemDishView) view).getDish();
+        Intent intent = new Intent(getActivity(), DishActivity.class);
+        intent.putExtra(DishActivity.EXTRA_DISH, dish);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     private BaseAdapter mAdapter = new BaseAdapter() {
@@ -59,11 +69,13 @@ public class SearchResultsFragment extends ListFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = new DishListItem(getActivity());
+                convertView = new ListItemDishView(getActivity());
             }
 
             Dish dish = (Dish) getItem(position);
-            ((DishListItem) convertView).setDish(dish);
+            ((ListItemDishView) convertView).setDish(dish);
+            convertView.setOnClickListener(SearchResultsFragment.this);
+
             return convertView;
         }
     };
