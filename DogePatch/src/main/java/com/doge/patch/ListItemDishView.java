@@ -16,10 +16,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
-public class DishListItem extends RelativeLayout {
-    private static final String TAG = DishListItem.class.getSimpleName();
+public class ListItemDishView extends RelativeLayout {
+    private static final String TAG = ListItemDishView.class.getSimpleName();
 
     private final LayoutInflater mInflater;
     private final ViewPager mBackgroundViewPager;
@@ -29,18 +32,18 @@ public class DishListItem extends RelativeLayout {
     private final TextView mLocationTextView;
     private float xDownPosition;
     private float yDownPosition;
+    private boolean mHasMoved;
 
     private Dish mDish;
     private DishBackgroundPagerAdapter mAdapter = new DishBackgroundPagerAdapter();
     private ImageLoader mImageLoader;
     private List<String> mImageUrls = new ArrayList<String>();
 
-
-    public DishListItem(Context context) {
+    public ListItemDishView(Context context) {
         this(context, null);
     }
 
-    public DishListItem(Context context, AttributeSet attrs) {
+    public ListItemDishView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,11 +65,17 @@ public class DishListItem extends RelativeLayout {
         if (action == MotionEvent.ACTION_DOWN) {
             xDownPosition = event.getX();
             yDownPosition = event.getY();
+            mHasMoved = false;
         } else if (action == MotionEvent.ACTION_MOVE) {
+            mHasMoved = true;
             float xDiff = Math.abs(event.getX() - xDownPosition);
             float yDiff = Math.abs(event.getY() - yDownPosition);
             if (xDiff > yDiff) {
                 getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        } else if (action == MotionEvent.ACTION_UP) {
+            if (!mHasMoved) {
+                callOnClick();
             }
         }
         return super.onInterceptTouchEvent(event);
@@ -79,17 +88,22 @@ public class DishListItem extends RelativeLayout {
     public void setDish(Dish dish) {
         mDish = dish;
         mDishNameTextView.setText(mDish.dishName + " — ");
-        mRestaurantNameTextView.setText(mDish.restaurantName);
+        mRestaurantNameTextView.setText(mDish.restaurant.name);
         mSocialTextView.setText(mDish.social);
         // TODO: format this string properly and handle distance units
-        mLocationTextView.setText("" + mDish.location + " mi");
+        mLocationTextView.setText("" + mDish.distance() + " mi");
 
         RequestQueue queue = DogePatchUtils.getRequestQueue(getContext().getApplicationContext());
-        mImageLoader = new ImageLoader(queue,new BitmapLruCache());
-        mImageUrls = Arrays.asList(mDish.imageUrls);
+        mImageLoader = DogePatchUtils.getImageLoader(getContext().getApplicationContext());
+        mImageUrls = mDish.images;
         Collections.shuffle(mImageUrls, new Random(System.nanoTime()));
         mAdapter.notifyDataSetChanged();
     }
+
+    public Dish getDish() {
+        return mDish;
+    }
+
 
     private class DishBackgroundPagerAdapter extends PagerAdapter {
 
