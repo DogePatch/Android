@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     private RelativeLayout mContentFragment;
     private DrawerAdapter mDrawerAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    private TextView mDrawerList;
+    private ListView mDrawerList;
 
 
     @Override
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
     private void initDrawer() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (TextView) findViewById(R.id.drawer_list);
+        mDrawerList = (ListView) findViewById(R.id.drawer_list);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
